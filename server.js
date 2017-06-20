@@ -7,14 +7,26 @@ require('dotenv').config();
 
 const bodyParser = require('body-parser');
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
+
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let db;
 
-MongoClient.connect(`${process.env.MONGO_URI}`, (err, database) => {
+const userSchema = new Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  // watchList: Array,
+});
+
+const User = mongoose.model('User', userSchema);
+
+mongoose.connect(`${process.env.MONGO_URI}`, (err, database) => {
   if (err) {
     return err;
   }
@@ -37,15 +49,40 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
+app.post('/login', (req, res) => {
+  User.find(req.body, (err, userData) => {
+    if (err) {
+      return err;
+    }
+    if (!userData[0]) {
+      res.redirect('login');
+    } else {
+      res.sendFile(path.join(__dirname, 'index.html'));
+    }
+    return userData;
+  });
+  // if (req.body.username.length && req.body.password.length) {
+  //   res.sendFile(path.join(__dirname, 'index.html'));
+  // } else {
+  //   res.redirect('login');
+  // }
+  // res.redirect('/userdash');
+});
+
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
-app.post('/login', (req, res) => {
-  if (req.body.username.length && req.body.password.length) {
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/signup.html'));
+});
+
+app.post('/signup', (req, res) => {
+  new User(req.body).save((err, result) => {
+    if (err) {
+      return err;
+    }
     res.sendFile(path.join(__dirname, 'index.html'));
-  } else {
-    res.redirect('login');
-  }
-  // res.redirect('/userdash');
+    return result;
+  });
 });
