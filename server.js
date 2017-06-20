@@ -1,8 +1,9 @@
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 const path = require('path');
+
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 
@@ -13,12 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let db;
 
-MongoClient.connect('mongodb://trobwe:grapp@ds131782.mlab.com:31782/grapp', (err, database) => {
+MongoClient.connect(`${process.env.MONGO_URI}`, (err, database) => {
   if (err) {
     return err;
   }
   db = database;
-  app.listen(PORT, () => {});
+  app.listen(process.env.PORT, () => {});
   return db;
 });
 
@@ -33,5 +34,18 @@ app.post('/watchList', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/login.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/login.html'));
+});
+
+app.post('/login', (req, res) => {
+  if (req.body.username.length && req.body.password.length) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  } else {
+    res.redirect('login');
+  }
+  // res.redirect('/userdash');
 });
