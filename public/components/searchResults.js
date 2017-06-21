@@ -5,14 +5,6 @@ angular.module('app')
     this.games = allGames;
     this.results = () => {
     };
-    this.getGameData = function () {
-      console.log(this.data, "adADfAJF");
-      $http.get(`/search/${this.data}`)
-        .then((res) => {
-          console.log(res, "HIT ME BABBABBABAY");
-        })
-        .catch((err) => err);
-    }
   })
   .directive('searchResults', function () {
     return {
