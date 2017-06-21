@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  // watchList: Array,
+  watchList: Array,
 });
 
 const User = mongoose.model('User', userSchema);
@@ -78,7 +78,7 @@ app.post('/signup', (req, res) => {
     if (err) {
       return err;
     }
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
     return result;
   });
 });
@@ -97,8 +97,6 @@ app.get('/search/*', (req, res) => {
     offset: 15,
     search: req.params[0], // Index offset for results
   }).then((ress) => {
-    console.log(ress.body);
-    allGames = ress.body;
     res.status(200).send(ress.body);
     // response.body contains the parsed JSON response to this query
   }).catch((error) => {

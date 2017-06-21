@@ -7,7 +7,7 @@
 // const client = igdb(process.env.IGDB_KEY);
 
 angular.module('app')
-.service('searchNar', function ($http) {
+  .service('searchNar', function ($http) {
     return {
       searchDar: (query, callback) => {
         console.log(query);
@@ -19,7 +19,7 @@ angular.module('app')
             search: query,
           },
           headers: {
-            'X-MASHAPE-KEY': 'E7XAmqA2rzmshBzYfsp4hfSBOgAYp1dyjImjsny1jgPBKH3uin',
+            'X-MASHAPE-KEY': '',
           }
         })
           .then((data) => {
@@ -28,25 +28,28 @@ angular.module('app')
       }
     }
 })
-  .controller('searchCtrl', function ($scope, searchNar, $http) {
-    $scope.testt = function() {
-      console.log('THIS IS A TEST');
-    }
+.controller('searchCtrl', function ($scope, searchNar, $http) {
+    $scope.games;
+    $scope.renderGames = false;
     $scope.getGameData = function () {
-      console.log($scope.data, "adADfAJF");
       $http.get(`/search/${$scope.data}`)
         .then((res) => {
-          console.log(res, "HIT ME BABBABBABAY");
+          $scope.games = res.data;
+          $scope.renderGames = true;
+          $scope.addToWatch = function() {
+            
+          }
+          console.log(res.data, "HIT ME BABBABBABAY");
         })
         .catch((err) => err);
-    };
+        };
     $scope.searchBar = (query) => {
       console.log(query);
       searchNar.searchDar(query, (data) => {
         console.log(data);
       })
     };
-  })
+})
   .directive('search', function () {
     return {
       // scope: {},
