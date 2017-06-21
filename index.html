@@ -9,9 +9,10 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   </head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-  <body ng-app>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+  <body>
     <div class="container-fluid">
+      <search ng-app="app"></search>
       <div class="row">
         <div class="col-md-12">
           <h2>Share your thoughts about the games that matter to you!</h2>
@@ -29,5 +30,8 @@
       </div>
       </div>
     </div>
+    <div ng-app="app"></div>
+    <script src="app.js"></script>
+    <script src="search.js"></script>
   </body>
 </html>

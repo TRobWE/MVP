@@ -3,4 +3,7 @@ module.exports = {
     "plugins": [
         "import"
     ],
+    // “globals”: {
+    //     “angular”: true,
+    // },
 };

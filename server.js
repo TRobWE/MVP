@@ -86,3 +86,15 @@ app.post('/signup', (req, res) => {
     return result;
   });
 });
+
+app.get('/app.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'components/app.js'));
+});
+
+app.get('/search.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'components/search.js'));
+});
+
+app.get('/public/search.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/search.html'));
+});
