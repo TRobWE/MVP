@@ -1,14 +1,12 @@
 <br>
-<form action="/search" method="POST">
-<div class="search-bar form-inline">
+<form class="search-bar form-inline">
   <input
-    ng-model="ctrl.input"
+    ng-model="input"
     class="form-control"
     type="text"
   />
   <br>
-  <button class="btn" ng-click="ctrl.searchBar()">
+  <button class="btn" ng-click="searchBar(input)">
     <span class="glyphicon glyphicon-search"></span>
   </button>
-</div>
 </form>
