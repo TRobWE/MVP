@@ -83,17 +83,23 @@ app.post('/signup', (req, res) => {
   });
 });
 
-app.get('/search', (req, res) => {
-  console.log(req.query.query, 'BODY');
-  client.games({
-    fields: 'name,summary,release_dates,cover', // Return all fields
-    limit: 5, // Limit to 5 results
-    offset: 15,
-    search: req.query.query, // Index offset for results
-  }).then((ress) => {
-    console.log(ress.body);
-    // response.body contains the parsed JSON response to this query
-  }).catch((error) => {
-    throw error;
-  });
-});
+// let allGames;
+// let gameTitle;
+// let gameReleaseData;
+// let gamePic;
+
+// app.get('/search', (req, res) => {
+//   // console.log(req.query.query, 'BODY');
+//   client.games({
+//     fields: 'name,summary,release_dates,cover', // Return all fields
+//     limit: 5, // Limit to 5 results
+//     offset: 15,
+//     search: req.query.query, // Index offset for results
+//   }).then((ress) => {
+//     console.log(ress.body);
+//     allGames = ress.body;
+//     // response.body contains the parsed JSON response to this query
+//   }).catch((error) => {
+//     throw error;
+//   });
+// });
