@@ -1,4 +1,4 @@
-<br>
+<!-- <br>
 <form class="search-bar form-inline">
   <input
     ng-model="input"
@@ -7,6 +7,15 @@
   />
   <br>
   <button class="btn" ng-click="searchBar(input)">
+    <span class="glyphicon glyphicon-search"></span>
+  </button>
+</form> -->
+
+<br>
+<form action="/search" class="search-bar form-inline" name="query" method="GET">
+  <input name="query" type="text" class="form-control" placeholder="Search for games!">
+  <br>
+  <button class="btn btn-default" type="submit">
     <span class="glyphicon glyphicon-search"></span>
   </button>
 </form>

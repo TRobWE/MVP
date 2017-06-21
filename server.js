@@ -7,7 +7,9 @@ require('dotenv').config();
 
 const bodyParser = require('body-parser');
 
-// const igdb = require('igdb-api-node').default;
+const igdb = require('igdb-api-node').default;
+
+const client = igdb(process.env.IGDB_KEY);
 
 // const MongoClient = require('mongodb').MongoClient;
 
@@ -17,8 +19,7 @@ const Schema = mongoose.Schema;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-let db;
+app.use(express.static(path.join(__dirname, 'public')));
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
@@ -32,20 +33,19 @@ mongoose.connect(`${process.env.MONGO_URI}`, (err, database) => {
   if (err) {
     return err;
   }
-  db = database;
   app.listen(process.env.PORT, () => {});
-  return db;
+  return database;
 });
 
-app.post('/watchList', (req, res) => {
-  db.collection('watchList').save(req.body, (err, result) => {
-    if (err) {
-      return err;
-    }
-    res.redirect('/');
-    return result;
-  });
-});
+// app.post('/watchList', (req, res) => {
+//   db.collection('watchList').save(req.body, (err, result) => {
+//     if (err) {
+//       return err;
+//     }
+//     res.redirect('/');
+//     return result;
+//   });
+// });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
@@ -59,16 +59,10 @@ app.post('/login', (req, res) => {
     if (!userData[0]) {
       res.redirect('login');
     } else {
-      res.sendFile(path.join(__dirname, 'index.html'));
+      res.sendFile(path.join(__dirname, 'public/index.html'));
     }
     return userData;
   });
-  // if (req.body.username.length && req.body.password.length) {
-  //   res.sendFile(path.join(__dirname, 'index.html'));
-  // } else {
-  //   res.redirect('login');
-  // }
-  // res.redirect('/userdash');
 });
 
 app.get('/login', (req, res) => {
@@ -89,14 +83,17 @@ app.post('/signup', (req, res) => {
   });
 });
 
-app.get('/app.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'components/app.js'));
-});
-
-app.get('/search.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'components/search.js'));
-});
-
-app.get('/public/search.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/search.html'));
+app.get('/search', (req, res) => {
+  console.log(req.query.query, 'BODY');
+  client.games({
+    fields: 'name,summary,release_dates,cover', // Return all fields
+    limit: 5, // Limit to 5 results
+    offset: 15,
+    search: req.query.query, // Index offset for results
+  }).then((ress) => {
+    console.log(ress.body);
+    // response.body contains the parsed JSON response to this query
+  }).catch((error) => {
+    throw error;
+  });
 });

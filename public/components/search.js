@@ -42,7 +42,7 @@ angular.module('app')
       controller: 'searchCtrl',
       controllerAs: 'ctrl',
       bindToController: true,
-      templateUrl: './../public/search.html',
+      templateUrl: './../search.html',
     };
   });
 
