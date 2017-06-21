@@ -11,11 +11,10 @@
   </button>
 </form> -->
 
-<br>
-<form action="/search" class="search-bar form-inline" name="query" method="GET">
-  <input name="query" type="text" class="form-control" placeholder="Search for games!">
+<form class="search-bar form-inline" name="query">
+  <input ng-model="ctrl.data" name="query" type="text" class="form-control" placeholder="Search for games!">
   <br>
-  <button class="btn btn-default" type="submit">
+  <button ng-click="getGameData()" class="btn btn-default" type="submit">
     <span class="glyphicon glyphicon-search"></span>
   </button>
 </form>

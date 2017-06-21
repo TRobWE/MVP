@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-  <body>
+  <body ng-app="app">
     <div class="container-fluid">
-      <search ng-app="app"></search>
+      <search></search>
       <div class="row">
         <div class="col-md-12">
           <h2>Share your thoughts about the games that matter to you!</h2>
@@ -25,7 +25,7 @@
           <div class="col-md-4">
           </div>
         <div class="col-md-4">
-          <form action="/" method="GET">
+          <form action="/" method="POST">
           <button class="btn btn-default" type="submit">Log Out!</button>
           </form>
       </div>
@@ -35,5 +35,6 @@
     <!-- <script src="./env"></script> -->
     <script src="components/app.js"></script>
     <script src="components/search.js"></script>
+    <script src="components/searchResults.js"></script>
   </body>
 </html>

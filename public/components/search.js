@@ -28,7 +28,18 @@ angular.module('app')
       }
     }
 })
-  .controller('searchCtrl', function ($scope, searchNar) {
+  .controller('searchCtrl', function ($scope, searchNar, $http) {
+    $scope.testt = function() {
+      console.log('THIS IS A TEST');
+    }
+    $scope.getGameData = function () {
+      console.log($scope.data, "adADfAJF");
+      $http.get(`/search/${$scope.data}`)
+        .then((res) => {
+          console.log(res, "HIT ME BABBABBABAY");
+        })
+        .catch((err) => err);
+    };
     $scope.searchBar = (query) => {
       console.log(query);
       searchNar.searchDar(query, (data) => {

@@ -3,6 +3,8 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<link rel="stylesheet" type="text/css" href="styles.css">
+
 <div class="container-fluid">
   <div class="col-md-4"></div>
   <div class="col-md-4">
@@ -14,7 +16,7 @@
             <label for="user">Username</label>
           </div>
         </div>
-        <input type="text" name="username">
+        <input class="input" type="text" name="username">
       </div>
       <br>
       <div class="row">
@@ -26,9 +28,11 @@
         <input type="text" name="password">
       </div>
       <br>
+      <label for="account">Have an account?</label>
       <button class="btn btn-default" type="submit">Log In!</button>
       </form>
       <form action="/signup" method="GET">
+        <label for="register">Need to Register?</label>
         <button class="btn btn-default" type="submit">Sign Up!</button>
       </form>
     </div>

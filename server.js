@@ -47,7 +47,7 @@ mongoose.connect(`${process.env.MONGO_URI}`, (err, database) => {
 //   });
 // });
 
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
@@ -88,18 +88,20 @@ app.post('/signup', (req, res) => {
 // let gameReleaseData;
 // let gamePic;
 
-// app.get('/search', (req, res) => {
-//   // console.log(req.query.query, 'BODY');
-//   client.games({
-//     fields: 'name,summary,release_dates,cover', // Return all fields
-//     limit: 5, // Limit to 5 results
-//     offset: 15,
-//     search: req.query.query, // Index offset for results
-//   }).then((ress) => {
-//     console.log(ress.body);
-//     allGames = ress.body;
-//     // response.body contains the parsed JSON response to this query
-//   }).catch((error) => {
-//     throw error;
-//   });
-// });
+app.get('/search/*', (req, res) => {
+  console.log("HIT SERVER");
+  // console.log(req.query.query, 'BODY');
+  client.games({
+    fields: 'name,summary,release_dates,cover', // Return all fields
+    limit: 5, // Limit to 5 results
+    offset: 15,
+    search: req.params[0], // Index offset for results
+  }).then((ress) => {
+    console.log(ress.body);
+    allGames = ress.body;
+    res.status(200).send(ress.body);
+    // response.body contains the parsed JSON response to this query
+  }).catch((error) => {
+    res.status(400).send("Error querying game database");
+  });
+});
